@@ -1,0 +1,11 @@
+html {
+    background-color: hsl(20, 50%, 98%);
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    font-family: "Red Hat Text", serif;
+}
