@@ -11,9 +11,9 @@ function Card(props){
     return(
         <div className="card">
             <div className="card__head">
-                <img className={imgMobileClass} src={props.imgMobile}/>
-                <img className={imgTabletClass} src={props.imgTablet}/>
-                <img className={imgDesktopClass} src={props.imgDesktop}/>
+                <img className={imgMobileClass} src={props.imgMobile} alt={`Dessert ${props.name} mobile image`}/>
+                <img className={imgTabletClass} src={props.imgTablet} alt={`Dessert ${props.name} tablet image`}/>
+                <img className={imgDesktopClass} src={props.imgDesktop} alt={`Dessert ${props.name} desktop image`}/>
                 <AddButton  name = {props.name} amount={props.amount} increaseAmount = {props.increaseAmount} decreaseAmount = {props.decreaseAmount}/>
             </div>
             <div className="card__information">

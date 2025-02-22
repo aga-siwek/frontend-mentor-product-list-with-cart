@@ -335,6 +335,10 @@ hr {
     padding: 4px;
 }
 
+.confirm-card__remove:hover {
+    cursor: pointer;
+}
+
 .confirm-card__line,
 .order-confirmed-card__line {
     border: 1px solid var(--color-secondary-5);

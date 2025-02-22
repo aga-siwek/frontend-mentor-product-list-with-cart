@@ -3,7 +3,7 @@ function OrderConfirmedCard(props) {
         <div className="order-confirmed-card__container">
             <div className="order-confirmed-card">
                 <div className="order-confirmed-card__product">
-                    <img src={props.imgThumbnaile} alt="product thumbnail" className="order-confirmed-card__img" />
+                    <img src={props.imgThumbnaile} alt={`Dessert ${props.name} thumbnail`} className="order-confirmed-card__img" />
                     <div className="order-confirmed-card__product-information">
                         <div className="order-confirmed-card__product-name">{props.name}</div>
                         <div className="order-confirmed-card__product-details">
