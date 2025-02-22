@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useReducer } from 'react'
 import './App.css'
 import Card from "./components/Card.jsx"
 import Confirm from './components/Confirm.jsx'
@@ -59,133 +59,155 @@ import waffleuMobile from "./assets/images/image-waffle-mobile.jpg"
 import waffleTablet from "./assets/images/image-waffle-tablet.jpg"
 import waffleThumbnaile from "./assets/images/image-waffle-thumbnail.jpg"
 
+const INITIAL_DESSERTS = [
+  {
+    name: "Waffle with Berries",
+    category: "Waffle",
+    imgDesktop: waffleDesktop,
+    imgMobile: waffleuMobile,
+    imgTablet: waffleTablet,
+    imgThumbnaile: waffleThumbnaile,
+    price: 6.50,
+    amount: 0
+  },
+  {
+    name: "Vanilla Bean Crème Brûlée",
+    category: "Crème Brûlée",
+    imgDesktop: cremeBruleeDesktop,
+    imgMobile: cremeBruleeMobile,
+    imgTablet: cremeBruleeTablet,
+    imgThumbnaile: cremeBruleeThumbnaile,
+    price: 7.00,
+    amount: 0
+  },
+  {
+    name: "Macaron Mix of Five",
+    category: "Macaron",
+    imgDesktop: macaronDesktop,
+    imgMobile: macaronMobile,
+    imgTablet: macaronTablet,
+    imgThumbnaile: macaronThumbnaile,
+    price: 8.00,
+    amount: 0
+  },
+  {
+    name: "Classic Tiramisu",
+    category: "Tiramisu",
+    imgDesktop: tiramisuDesktop,
+    imgMobile: tiramisuMobile,
+    imgTablet: tiramisuTablet,
+    imgThumbnaile: tiramisuThumbnaile,
+    price: 5.50,
+    amount: 0
+  },
+  {
+    name: "Pistachio Baklava",
+    category: "Baklava",
+    imgDesktop: baklavaDesktop,
+    imgMobile: baklavaMobile,
+    imgTablet: baklavaTablet,
+    imgThumbnaile: baklavaThumbnaile,
+    price: 4.00,
+    amount: 0
+  },
+  {
+    name: "Lemon Meringue Pie",
+    category: "Pie",
+    imgDesktop: meringueDesktop,
+    imgMobile: meringueMobile,
+    imgTablet: meringueTablet,
+    imgThumbnaile: meringueThumbnaile,
+    price: 5.00,
+    amount: 0
+  },
+  {
+    name: "Red Velvet Cake",
+    category: "Cake",
+    imgDesktop: cakeDesktop,
+    imgMobile: cakeMobile,
+    imgTablet: cakeTablet,
+    imgThumbnaile: cakeThumbnaile,
+    price: 4.50,
+    amount: 0
+  },
+  {
+    name: "Salted Caramel Brownie",
+    category: "Brownie",
+    imgDesktop: brownieDesktop,
+    imgMobile: brownieMobile,
+    imgTablet: brownieTablet,
+    imgThumbnaile: brownieThumbnaile,
+    price: 5.50,
+    amount: 0
+  },
+  {
+    name: "Vanilla Panna Cotta",
+    category: "Panna Cotta",
+    imgDesktop: pannaCottaDesktop,
+    imgMobile: pannaCottaMobile,
+    imgTablet: pannaCottaTablet,
+    imgThumbnaile: pannaCottaThumbnaile,
+    price: 6.50,
+    amount: 0
+  }
+];
+
+const ACTIONS = {
+  INCREMENT: "increment",
+  DECREMENT: "decrement",
+  DELETE: "delete",
+  RESET: "reset"
+}
+
+const dessertsReducer = (state, action) => {
+  switch (action.type) {
+    case ACTIONS.INCREMENT:
+      return state.map(dessert => dessert.name === action.name ? { ...dessert, amount: dessert.amount + 1 } : dessert);
+    case ACTIONS.DECREMENT:
+      return state.map(dessert => dessert.name === action.name ? { ...dessert, amount: dessert.amount - 1 } : dessert);
+    case ACTIONS.DELETE:
+      return state.map(dessert => dessert.name === action.name ? { ...dessert, amount: 0 } : dessert);
+    case ACTIONS.RESET:
+      return INITIAL_DESSERTS
+    default:
+      throw "invalid action";
+  }
+};
+
 function App() {
-
-  const INITIAL_DESSERTS = [
-    {
-      name: "Waffle with Berries",
-      category: "Waffle",
-      imgDesktop: waffleDesktop,
-      imgMobile: waffleuMobile,
-      imgTablet: waffleTablet,
-      imgThumbnaile: waffleThumbnaile,
-      price: 6.50,
-      amount: 0
-    },
-    {
-      name: "Vanilla Bean Crème Brûlée",
-      category: "Crème Brûlée",
-      imgDesktop: cremeBruleeDesktop,
-      imgMobile: cremeBruleeMobile,
-      imgTablet: cremeBruleeTablet,
-      imgThumbnaile: cremeBruleeThumbnaile,
-      price: 7.00,
-      amount: 0
-    },
-    {
-      name: "Macaron Mix of Five",
-      category: "Macaron",
-      imgDesktop: macaronDesktop,
-      imgMobile: macaronMobile,
-      imgTablet: macaronTablet,
-      imgThumbnaile: macaronThumbnaile,
-      price: 8.00,
-      amount: 0
-    },
-    {
-      name: "Classic Tiramisu",
-      category: "Tiramisu",
-      imgDesktop: tiramisuDesktop,
-      imgMobile: tiramisuMobile,
-      imgTablet: tiramisuTablet,
-      imgThumbnaile: tiramisuThumbnaile,
-      price: 5.50,
-      amount: 0
-    },
-    {
-      name: "Pistachio Baklava",
-      category: "Baklava",
-      imgDesktop: baklavaDesktop,
-      imgMobile: baklavaMobile,
-      imgTablet: baklavaTablet,
-      imgThumbnaile: baklavaThumbnaile,
-      price: 4.00,
-      amount: 0
-    },
-    {
-      name: "Lemon Meringue Pie",
-      category: "Pie",
-      imgDesktop: meringueDesktop,
-      imgMobile: meringueMobile,
-      imgTablet: meringueTablet,
-      imgThumbnaile: meringueThumbnaile,
-      price: 5.00,
-      amount: 0
-    },
-    {
-      name: "Red Velvet Cake",
-      category: "Cake",
-      imgDesktop: cakeDesktop,
-      imgMobile: cakeMobile,
-      imgTablet: cakeTablet,
-      imgThumbnaile: cakeThumbnaile,
-      price: 4.50,
-      amount: 0
-    },
-    {
-      name: "Salted Caramel Brownie",
-      category: "Brownie",
-      imgDesktop: brownieDesktop,
-      imgMobile: brownieMobile,
-      imgTablet: brownieTablet,
-      imgThumbnaile: brownieThumbnaile,
-      price: 5.50,
-      amount: 0
-    },
-    {
-      name: "Vanilla Panna Cotta",
-      category: "Panna Cotta",
-      imgDesktop: pannaCottaDesktop,
-      imgMobile: pannaCottaMobile,
-      imgTablet: pannaCottaTablet,
-      imgThumbnaile: pannaCottaThumbnaile,
-      price: 6.50,
-      amount: 0
-    }
-  ];
-
-  const [desserts, setDesserts] = useState(INITIAL_DESSERTS);
+  const [desserts, dispatchDesserts] = useReducer(dessertsReducer, INITIAL_DESSERTS)
   const [isOpen, setIsOpen] = useState(false)
 
   const increaseAmount = (name) => {
-    console.log(name)
-    const newDesserts = desserts.map(dessert => dessert.name === name ? { ...dessert, amount: dessert.amount + 1 } : dessert);
-    setDesserts(newDesserts);
-    console.log(desserts);
+    dispatchDesserts({
+      type: ACTIONS.INCREMENT,
+      name: name
+    });
   }
 
   const decreaseAmount = (name) => {
-    console.log(name)
-    const newDesserts = desserts.map(dessert => dessert.name === name ? { ...dessert, amount: dessert.amount - 1 } : dessert);
-    setDesserts(newDesserts);
-    console.log(desserts);
+    dispatchDesserts({
+      type: ACTIONS.DECREMENT,
+      name: name
+    });
   }
 
   const deleteDessert = (name) => {
-    console.log(name)
-    const removeDesert = desserts.map(dessert => dessert.name === name ? { ...dessert, amount: 0 } : dessert);
-    setDesserts(removeDesert);
+    dispatchDesserts({
+      type: ACTIONS.DELETE,
+      name: name
+    });
   }
-
-  const showElement = () => {
-    isOpen === false ? setIsOpen(true) : setIsOpen(false);
-  }
-
 
   const startNewOrder = () => {
-    setDesserts(INITIAL_DESSERTS);
+    dispatchDesserts({
+      type: ACTIONS.RESET,
+    });
     setIsOpen(false)
 
+  }
+  const showElement = () => {
+    isOpen === false ? setIsOpen(true) : setIsOpen(false);
   }
 
   let chosenDesserts = desserts.filter(dessert => dessert.amount > 0)
@@ -199,8 +221,9 @@ function App() {
           </header>
           <main className='desserts__cards'>
             {desserts.map((dessert, index) => (
-              <div className="desserts__card" key={index}>
+              <div className="desserts__card" >
                 <Card
+                
                   imgDesktop={dessert.imgDesktop}
                   imgMobile={dessert.imgMobile}
                   imgTablet={dessert.imgTablet}

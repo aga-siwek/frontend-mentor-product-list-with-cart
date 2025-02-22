@@ -26,7 +26,6 @@ hr {
     padding: 0;
 }
 
-
 .container {
     display: flex;
     flex-direction: column;
@@ -52,7 +51,7 @@ hr {
 .desserts__cards {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px 24px;
 }
 
 .desserts__card {}
@@ -129,6 +128,7 @@ hr {
     border: 1px solid var(--color-secondary-3);
     min-width: calc(160rem/16);
     height: calc(44rem/16);
+    background-color: var(--color-secondary-10);
 }
 
 .add-button__button:hover {
@@ -536,8 +536,8 @@ hr {
     .container{
         display: grid;
         grid-template-columns: 4fr 2fr;
-        padding: calc(88rem/16);
-        max-width: calc(1440rem / 16);
+        padding: calc(88rem/16) 0;
+        max-width: calc(1216rem / 16);
     }
 
     .card__image_mobile {
