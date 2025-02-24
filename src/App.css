@@ -142,7 +142,7 @@ hr {
 
 .add-button__text {
     color: var(--color-secondary-1);
-    font-size: calc(13rem/16);
+    font-size: calc(12rem/16);
     font-weight: 600;
 }
 
@@ -220,7 +220,7 @@ hr {
 .count-button__text {
     color: var(--color-secondary-10);
     font-weight: 600;
-    font-size: calc(13rem/16);
+    font-size: calc(12rem/16);
 }
 
 .confirm {
